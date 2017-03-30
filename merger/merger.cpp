@@ -3,17 +3,19 @@
 #include<string>
 #define algorithm_number 5
 #define UE_level 15
-#define parameter 23
+#define parameter 24
+
 
 using namespace std;
 
 int main()
 {
-	//cout << "輸入檔案個數 : ";
-	//cin >> file_num;
-
 	double result[algorithm_number][UE_level][parameter] = { 0 };
-
+	string algorithm_name[] = { "dso_0","dso_1","dso_2","minT","SINR" };
+	string parameter_name[] = { "outage_UE","avg_T","stdev_T","avg_UE_number","stdev_UE_number","avg_capacity_UE","stdev_capacity_UE ","avg_T_UE","stdev_T_UE",
+		"avg_T_LTE","avg_T_WIFI","stdev_T_WIFI","avg_UE_number_LTE","avg_UE_number_WIFI","stdev_UE_number_WIFI",
+		"avg_capacity_LTEUE","stdev_capacity_UE_LTE","avg_capacity_WIFIUE","stdev_capacity_UE_WIFI",
+		"avg_T_UE_LTE","avg_T_UE_WIFI","stdev_T_UE_WIFI","DB_satisfied","throughput" };
 	for (int i = 0; i < algorithm_number; i++)
 	{
 		char *algorihm_name;
@@ -75,6 +77,7 @@ int main()
 					result[i][j][k] /= n;
 
 			}
+			file.close();
 		}
 	}
 
@@ -85,35 +88,26 @@ int main()
 		cout << outcome_name << " 開啟失敗." << endl;
 	else
 	{
-		for (int i = 0; i < 5; i++)
+		for (int k = 0; k < parameter; k++)
 		{
-			if(i==0)
-				outcome << " ,outage_UE,avg_T,stdev_T,avg_UE_number,stdev_UE_number,avg_capacity_UE,stdev_capacity_UE,avg_T_UE,stdev_T_UE,avg_T_LTE,avg_T_WIFI,stdev_T_WIFI,"
-				<< "avg_UE_number_LTE,avg_UE_number_WIFI,stdev_UE_number_WIFI,avg_capacity_LTEUE,stdev_capacity_UE_LTE,avg_capacity_WIFIUE,stdev_capacity_UE_WIFI,avg_T_UE_LTE,"
-				<< "avg_T_UE_WIFI,stdev_T_UE_WIFI,DB_satisfied";
-			else
-				outcome << ", ,outage_UE,avg_T,stdev_T,avg_UE_number,stdev_UE_number,avg_capacity_UE,stdev_capacity_UE,avg_T_UE,stdev_T_UE,avg_T_LTE,avg_T_WIFI,stdev_T_WIFI,"
-				<< "avg_UE_number_LTE,avg_UE_number_WIFI,stdev_UE_number_WIFI,avg_capacity_LTEUE,stdev_capacity_UE_LTE,avg_capacity_WIFIUE,stdev_capacity_UE_WIFI,avg_T_UE_LTE,"
-				<< "avg_T_UE_WIFI,stdev_T_UE_WIFI,DB_satisfied";
-		}
-		outcome << endl;
-
-		for (int j = 0; j < UE_level; j++)
-		{
-			outcome << (j + 1) * 1000 << ",";
+			outcome << parameter_name[k] << ",";
+			for (int n = 0; n < UE_level; n++)
+				outcome << (n + 1) * 1000 << ",";
+			outcome << endl;
 			for (int i = 0; i < algorithm_number; i++)
 			{
-				for (int k = 0; k < parameter; k++)
+				outcome << algorithm_name[i] << ",";
+				for (int j = 0; j < UE_level; j++)
 				{
-					if (k != parameter - 1)
+					if (j != UE_level - 1)
 						outcome << result[i][j][k] << ",";
 					else
-						outcome << result[i][j][k] << "," << ",";
+						outcome << result[i][j][k] << endl;
 				}
 			}
 			outcome << endl;
 		}
 	}
-	
+	outcome.close();
 	return 0;
 }
