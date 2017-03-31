@@ -1,17 +1,33 @@
 #include<iostream>
 #include<fstream>
 #include<string>
-#define algorithm_number 5
+#define algorithm_number 8
 #define UE_level 15
 #define parameter 24
-
+#define UE_mode_number 2
 
 using namespace std;
 
 int main()
 {
+	int mode = 0;
+	cout << "Input mode number (uniform = 0, hotspot = 1):";
+	cin >> mode;
+	
+	char *mode_name;
+	if (mode == 0)
+	{
+		mode_name = new char[1];
+		mode_name = "";
+	}
+	else
+	{
+		mode_name = new char[3];
+		mode_name = "hs_";
+	}
+
 	double result[algorithm_number][UE_level][parameter] = { 0 };
-	string algorithm_name[] = { "dso_0","dso_1","dso_2","minT","SINR" };
+	string algorithm_name[] = { "dso_0","dso_ex_0","dso_1","dso_ex_1","dso_2","dso_ex_2","minT","SINR" };
 	string parameter_name[] = { "outage_UE","avg_T","stdev_T","avg_UE_number","stdev_UE_number","avg_capacity_UE","stdev_capacity_UE ","avg_T_UE","stdev_T_UE",
 		"avg_T_LTE","avg_T_WIFI","stdev_T_WIFI","avg_UE_number_LTE","avg_UE_number_WIFI","stdev_UE_number_WIFI",
 		"avg_capacity_LTEUE","stdev_capacity_UE_LTE","avg_capacity_WIFIUE","stdev_capacity_UE_WIFI",
@@ -27,17 +43,29 @@ int main()
 			break;
 		case 1:
 			algorihm_name = new char[6];
-			algorihm_name = "dso_1";
+			algorihm_name = "dso_ex_0";
 			break;
 		case 2:
 			algorihm_name = new char[6];
-			algorihm_name = "dso_2";
+			algorihm_name = "dso_1";
 			break;
 		case 3:
+			algorihm_name = new char[9];
+			algorihm_name = "dso_ex_1";
+			break;
+		case 4:
+			algorihm_name = new char[9];
+			algorihm_name = "dso_2";
+			break;
+		case 5:
+			algorihm_name = new char[9];
+			algorihm_name = "dso_ex_2";
+			break;
+		case 6:
 			algorihm_name = new char[5];
 			algorihm_name = "minT";
 			break;
-		case 4:
+		case 7:
 			algorihm_name = new char[5];
 			algorihm_name = "SINR";
 			break;
@@ -48,7 +76,7 @@ int main()
 		for (int j = 0; j < UE_level; j++)
 		{
 			char filename[50];
-			sprintf_s(filename, "hs_%s_UE%d_result.csv", algorihm_name, (j + 1) * 1000);
+			sprintf_s(filename, "%s%s_UE%d_result.csv", mode_name, algorihm_name, (j + 1) * 1000);
 			ifstream file;
 			file.open(filename, ios::in);
 			if (file.fail())
