@@ -27,7 +27,7 @@ int main()
 	}
 
 	double result[algorithm_number][UE_level][parameter] = { 0 };
-	string algorithm_name[] = { "dso_0","dso_ex_0","dso_1","dso_ex_1","dso_2","dso_ex_2","minT","SINR" };
+	string algorithm_name[] = { "dso_0","dso_ex_0","dso_1","dso_ex_1","dso_2","dso_ex_2","Capa","SINR" };
 	string parameter_name[] = { "outage_UE","avg_T","stdev_T","avg_UE_number","stdev_UE_number","avg_capacity_UE","stdev_capacity_UE ","avg_T_UE","stdev_T_UE",
 		"avg_T_LTE","avg_T_WIFI","stdev_T_WIFI","avg_UE_number_LTE","avg_UE_number_WIFI","stdev_UE_number_WIFI",
 		"avg_capacity_LTEUE","stdev_capacity_UE_LTE","avg_capacity_WIFIUE","stdev_capacity_UE_WIFI",
@@ -63,7 +63,7 @@ int main()
 			break;
 		case 6:
 			algorihm_name = new char[5];
-			algorihm_name = "minT";
+			algorihm_name = "Capa";
 			break;
 		case 7:
 			algorihm_name = new char[5];
