@@ -1,9 +1,9 @@
 #include<iostream>
 #include<fstream>
 #include<string>
-#define algorithm_number 8
+#define algorithm_number 14
 #define UE_level 15
-#define parameter 24
+#define parameter 28
 #define UE_mode_number 2
 
 using namespace std;
@@ -27,46 +27,74 @@ int main()
 	}
 
 	double result[algorithm_number][UE_level][parameter] = { 0 };
-	string algorithm_name[] = { "dso_0","dso_ex_0","dso_1","dso_ex_1","dso_2","dso_ex_2","Capa","SINR" };
+	char algorihm[][] = { "DSO"};
+
+
+
+	string algorithm_name[] = { "dso_0_25","dso_0_50","dso_0_75","dso_0_90","dso_1_25","dso_1_50","dso_1_75","dso_1_90","dso_2_25","dso_2_50","dso_2_75","dso_2_90","Capa","SINR" };
 	string parameter_name[] = { "outage_UE","avg_T","stdev_T","avg_UE_number","stdev_UE_number","avg_capacity_UE","stdev_capacity_UE ","avg_T_UE","stdev_T_UE",
 		"avg_T_LTE","avg_T_WIFI","stdev_T_WIFI","avg_UE_number_LTE","avg_UE_number_WIFI","stdev_UE_number_WIFI",
 		"avg_capacity_LTEUE","stdev_capacity_UE_LTE","avg_capacity_WIFIUE","stdev_capacity_UE_WIFI",
-		"avg_T_UE_LTE","avg_T_UE_WIFI","stdev_T_UE_WIFI","DB_satisfied","throughput" };
+		"avg_T_UE_LTE","avg_T_UE_WIFI","stdev_T_UE_WIFI","DB_satisfied","throughput", "satisfied percentage", "DB50_satisfied_percentage", "DB100_satisfied_percentag" , "DB300_satisfied_percentag" };
 	for (int i = 0; i < algorithm_number; i++)
 	{
 		char *algorihm_name;
 		switch (i)
 		{
 		case 0:
-			algorihm_name = new char[6];
-			algorihm_name = "dso_0";
+			algorihm_name = new char[10];
+			algorihm_name = "DSO_0_0";
 			break;
 		case 1:
-			algorihm_name = new char[6];
-			algorihm_name = "dso_ex_0";
+			algorihm_name = new char[10];
+			algorihm_name = "DSO_0_25";
 			break;
 		case 2:
-			algorihm_name = new char[6];
-			algorihm_name = "dso_1";
+			algorihm_name = new char[10];
+			algorihm_name = "DSO_0_50";
 			break;
 		case 3:
-			algorihm_name = new char[9];
-			algorihm_name = "dso_ex_1";
+			algorihm_name = new char[10];
+			algorihm_name = "DSO_0_75";
 			break;
 		case 4:
-			algorihm_name = new char[9];
-			algorihm_name = "dso_2";
+			algorihm_name = new char[10];
+			algorihm_name = "dso_1_25";
 			break;
 		case 5:
-			algorihm_name = new char[9];
-			algorihm_name = "dso_ex_2";
+			algorihm_name = new char[10];
+			algorihm_name = "dso_1_50";
 			break;
 		case 6:
-			algorihm_name = new char[5];
-			algorihm_name = "Capa";
+			algorihm_name = new char[10];
+			algorihm_name = "dso_1_75";
 			break;
 		case 7:
-			algorihm_name = new char[5];
+			algorihm_name = new char[10];
+			algorihm_name = "dso_1_90";
+			break;
+		case 8:
+			algorihm_name = new char[10];
+			algorihm_name = "dso_2_25";
+			break;
+		case 9:
+			algorihm_name = new char[10];
+			algorihm_name = "dso_2_50";
+			break;
+		case 10:
+			algorihm_name = new char[10];
+			algorihm_name = "dso_2_75";
+			break;
+		case 11:
+			algorihm_name = new char[10];
+			algorihm_name = "dso_2_90";
+			break;
+		case 12:
+			algorihm_name = new char[10];
+			algorihm_name = "Capa";
+			break;
+		case 13:
+			algorihm_name = new char[10];
 			algorihm_name = "SINR";
 			break;
 		default:
