@@ -1,9 +1,9 @@
 #include<iostream>
 #include<fstream>
 #include<string>
-#define algorithm_number 14
-#define UE_level 15
-#define parameter 28
+#define algorithm_number 17
+#define UE_level 12
+#define parameter_number 28
 #define UE_mode_number 2
 
 using namespace std;
@@ -26,99 +26,34 @@ int main()
 		mode_name = "hs_";
 	}
 
-	double result[algorithm_number][UE_level][parameter] = { 0 };
-	char algorihm[][] = { "DSO"};
+	double result[algorithm_number][UE_level][parameter_number] = { 0 };
+	char algorithm[][10] = { "DSO_0_0", "DSO_0_25", "DSO_0_50", "DSO_0_75", "DSO_0_100", "DSO_1_0", "DSO_1_25", "DSO_1_50", "DSO_1_75", "DSO_1_100", "DSO_2_0", "DSO_2_25", "DSO_2_50", "DSO_2_75", "DSO_2_100", "Capa", "SINR" };
+	char parameter[][25] = { "Outage_UE", "Avg_T", "T_SD", "Avg_UE_number", "UE_number_SD", "Avg_Capacity_UE", "Capacity_SD_UE", "Avg_T_UE", "T_SD_UE",
+							  "Avg_T_LTE", "Avg_T_WiFi", "T_SD_WiFi", "Avg_UE_number_LTE", "Avg_UE_number_WiFi", "UE_number_SD_WiFi",
+							  "Avg_Capacity_UE_LTE", "Capacity_SD_UE_LTE", "Avg_Capacity_UE_WiFi", "Capacity_SD_UE_WiFi", "Avg_T_UE_LTE", "Avg_T_UE_WiFi", "T_SD_UE_WiFi",
+							  "Satisfied_UE_number", "Throughput", "Satisfaction", "DB50_Satisfied%", "DB100_Satisfied%", "DB300_Satisfied%" };
 
-
-
-	string algorithm_name[] = { "dso_0_25","dso_0_50","dso_0_75","dso_0_90","dso_1_25","dso_1_50","dso_1_75","dso_1_90","dso_2_25","dso_2_50","dso_2_75","dso_2_90","Capa","SINR" };
-	string parameter_name[] = { "outage_UE","avg_T","stdev_T","avg_UE_number","stdev_UE_number","avg_capacity_UE","stdev_capacity_UE ","avg_T_UE","stdev_T_UE",
-		"avg_T_LTE","avg_T_WIFI","stdev_T_WIFI","avg_UE_number_LTE","avg_UE_number_WIFI","stdev_UE_number_WIFI",
-		"avg_capacity_LTEUE","stdev_capacity_UE_LTE","avg_capacity_WIFIUE","stdev_capacity_UE_WIFI",
-		"avg_T_UE_LTE","avg_T_UE_WIFI","stdev_T_UE_WIFI","DB_satisfied","throughput", "satisfied percentage", "DB50_satisfied_percentage", "DB100_satisfied_percentag" , "DB300_satisfied_percentag" };
 	for (int i = 0; i < algorithm_number; i++)
 	{
-		char *algorihm_name;
-		switch (i)
-		{
-		case 0:
-			algorihm_name = new char[10];
-			algorihm_name = "DSO_0_0";
-			break;
-		case 1:
-			algorihm_name = new char[10];
-			algorihm_name = "DSO_0_25";
-			break;
-		case 2:
-			algorihm_name = new char[10];
-			algorihm_name = "DSO_0_50";
-			break;
-		case 3:
-			algorihm_name = new char[10];
-			algorihm_name = "DSO_0_75";
-			break;
-		case 4:
-			algorihm_name = new char[10];
-			algorihm_name = "dso_1_25";
-			break;
-		case 5:
-			algorihm_name = new char[10];
-			algorihm_name = "dso_1_50";
-			break;
-		case 6:
-			algorihm_name = new char[10];
-			algorihm_name = "dso_1_75";
-			break;
-		case 7:
-			algorihm_name = new char[10];
-			algorihm_name = "dso_1_90";
-			break;
-		case 8:
-			algorihm_name = new char[10];
-			algorihm_name = "dso_2_25";
-			break;
-		case 9:
-			algorihm_name = new char[10];
-			algorihm_name = "dso_2_50";
-			break;
-		case 10:
-			algorihm_name = new char[10];
-			algorihm_name = "dso_2_75";
-			break;
-		case 11:
-			algorihm_name = new char[10];
-			algorihm_name = "dso_2_90";
-			break;
-		case 12:
-			algorihm_name = new char[10];
-			algorihm_name = "Capa";
-			break;
-		case 13:
-			algorihm_name = new char[10];
-			algorihm_name = "SINR";
-			break;
-		default:
-			break;
-		}
-
 		for (int j = 0; j < UE_level; j++)
 		{
-			char filename[50];
-			sprintf_s(filename, "%s%s_UE%d_result.csv", mode_name, algorihm_name, (j + 1) * 1000);
-			ifstream file;
-			file.open(filename, ios::in);
-			if (file.fail())
+			char filename[100];
+			sprintf_s(filename, "%sUE%d_%s_result.csv", mode_name, (j + 1) * 1000, algorithm[i]);
+			//cout << filename << endl;
+			ifstream ReadResult;
+			ReadResult.open(filename, ios::in);
+			if (ReadResult.fail())
 				cout << filename << " 開啟失敗." << endl;
 			else
 			{
 				string in;
 				int n = 0;
-				while (file >> in)
+				while (ReadResult >> in)
 				{
 					n++;
 					int size = in.size();
 					int begin = 0;
-					for (int k = 0; k < parameter; k++)
+					for (int k = 0; k < parameter_number; k++)
 					{
 						int pos = in.find(",", begin);
 						if (pos < size)
@@ -129,41 +64,41 @@ int main()
 						}
 					}
 				}
-				for (int k = 0; k < parameter; k++)
+				for (int k = 0; k < parameter_number; k++)
 					result[i][j][k] /= n;
 
 			}
-			file.close();
+			ReadResult.close();
 		}
 	}
 
-	fstream outcome;
-	char outcome_name[] = "simulation_result.csv";
-	outcome.open(outcome_name, ios::out | ios::trunc);
-	if (outcome.fail())
-		cout << outcome_name << " 開啟失敗." << endl;
+	fstream WriteResult;
+	char ResultName[] = "simulation_result.csv";
+	WriteResult.open(ResultName, ios::out | ios::trunc);
+	if (WriteResult.fail())
+		cout << ResultName << " 開啟失敗." << endl;
 	else
 	{
-		for (int k = 0; k < parameter; k++)
+		for (int k = 0; k < parameter_number; k++)
 		{
-			outcome << parameter_name[k] << ",";
+			WriteResult << parameter[k] << ",";
 			for (int n = 0; n < UE_level; n++)
-				outcome << (n + 1) * 1000 << ",";
-			outcome << endl;
+				WriteResult << (n + 1) * 1000 << ",";
+			WriteResult << endl;
 			for (int i = 0; i < algorithm_number; i++)
 			{
-				outcome << algorithm_name[i] << ",";
+				WriteResult << algorithm[i] << ",";
 				for (int j = 0; j < UE_level; j++)
 				{
 					if (j != UE_level - 1)
-						outcome << result[i][j][k] << ",";
+						WriteResult << result[i][j][k] << ",";
 					else
-						outcome << result[i][j][k] << endl;
+						WriteResult << result[i][j][k] << endl;
 				}
 			}
-			outcome << endl;
+			WriteResult << endl;
 		}
 	}
-	outcome.close();
+	WriteResult.close();
 	return 0;
 }
