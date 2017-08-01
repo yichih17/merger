@@ -1,10 +1,16 @@
+/*
+  用來統整Delay-Sensitive Offloading輸出結果的程式
+  自動計算各項參數的平均
+  .exe檔必須放在輸出結果的資料夾下執行
+*/
+
 #include<iostream>
 #include<fstream>
 #include<string>
-#define algorithm_number 17
-#define UE_level 12
-#define parameter_number 29
-#define UE_mode_number 2
+#define algorithm_number 17		//執行的演算法個數
+#define UE_level 12				//UE的個數
+#define parameter_number 29		//效能參數的個數
+#define UE_mode_number 2		//UE個分布模式個數
 
 using namespace std;
 
